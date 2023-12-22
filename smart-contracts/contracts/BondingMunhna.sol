@@ -12,6 +12,10 @@ import "hardhat/console.sol";
  * @notice This contracts helps the Munhna token contract to perform
  * the buy and sell functionality using the bonding munhna mechanism.
  */
+ contract Register {
+    function register(address _recipient) public returns (uint256 tokenId) {}
+}
+
 contract BondingMunhna is Context {
     error InvalidMunhnaType();
     error InvalidAmount();
@@ -26,7 +30,7 @@ contract BondingMunhna is Context {
     uint256 public reserveBalance;
     uint256 public scalingFactor;
     uint8 public munhnaType;
-    address feeReceiver = msg.sender;
+    address immutable feeReceiver;
 
     event Purchase(address indexed buyer, uint256 amount, uint256 cost);
     event Sale(address indexed seller, uint256 amount, uint256 refund);
@@ -37,17 +41,18 @@ contract BondingMunhna is Context {
         uint256 precision,
         uint8 _munhnaType,
         address _tokenA,
-        address _tokenB
+        address _tokenB,
+        address _feeReceiver
     ) {
         munhnaType = _munhnaType;
         tokenA = _tokenA;
         tokenB = _tokenB;
         totalSupply = 0;
         CURVE_PRECISION = precision;
-        scalingFactor = calculateScalingFactor()
-        feeReceiver = msg.sender;
+        scalingFactor = calculateScalingFactor();
+        feeReceiver = _feeReceiver;
         Register sfsContract = Register(0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6); 
-        sfsContract.register(msg.sender);
+        sfsContract.register(feeReceiver);
     }
 
     function calculateScalingFactor() internal pure returns (uint256) {

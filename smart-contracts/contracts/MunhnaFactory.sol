@@ -10,7 +10,7 @@ import "./MunhnaERC20.sol";
  * @title Munhna factory
  * @dev A factory contract for deploying the tokens
  */
-contract MunhnaFactory is Context {
+ contract MunhnaFactory is Context {
     /// emits then a token is created
     /// @param token token address
     /// @param manager address of the token manager
@@ -47,6 +47,8 @@ contract MunhnaFactory is Context {
 
     TokenDetails[] balances;
 
+    address public originalCaller;
+
     /**
      * @dev returns the list of TokenPairs
      */
@@ -78,6 +80,8 @@ contract MunhnaFactory is Context {
         address pairToken,
         uint256 salt
     ) public {
+
+        originalCaller = msg.sender;
         // Deploy token contract
         bytes memory tokenCreationCode = type(Munhna_ERC20).creationCode;
 
@@ -104,9 +108,9 @@ contract MunhnaFactory is Context {
         bytes memory managerCreationCode = type(BondingMunhna).creationCode;
 
         bytes memory managerBytecode = abi.encodePacked(
-            managerCreationCode,
-            abi.encode(precision, _curveType, token, pairToken)
-        );
+        managerCreationCode,
+        abi.encode(precision, _curveType, token, pairToken, originalCaller) 
+    );
 
         address tokenManager;
         assembly {
