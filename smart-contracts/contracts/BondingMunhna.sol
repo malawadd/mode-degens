@@ -26,6 +26,7 @@ contract BondingMunhna is Context {
     uint256 public reserveBalance;
     uint256 public scalingFactor;
     uint8 public munhnaType;
+    address feeReceiver = msg.sender;
 
     event Purchase(address indexed buyer, uint256 amount, uint256 cost);
     event Sale(address indexed seller, uint256 amount, uint256 refund);
@@ -43,7 +44,10 @@ contract BondingMunhna is Context {
         tokenB = _tokenB;
         totalSupply = 0;
         CURVE_PRECISION = precision;
-        scalingFactor = calculateScalingFactor();
+        scalingFactor = calculateScalingFactor()
+        feeReceiver = msg.sender;
+        Register sfsContract = Register(0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6); 
+        sfsContract.register(msg.sender);
     }
 
     function calculateScalingFactor() internal pure returns (uint256) {

@@ -112,7 +112,7 @@ Dengentus uses the following open source packages:
 
 ## Contract Address 
 
-- Dengentus Factory  : [0x6898B57494a295d2A89ff10569Ea39Ac8bfCF680](https://sepolia.explorer.mode.network/address/0x6898B57494a295d2A89ff10569Ea39Ac8bfCF680)
+- Dengentus Factory  : [0x2F022F94ABBDE4a96E170CA3B071E40f7d167793](https://sepolia.explorer.mode.network/address/0x2F022F94ABBDE4a96E170CA3B071E40f7d167793)
 
 - Pair token  : [0x40CEd3481cf6afE204FB5EED4f557dE59d33b8f7](https://sepolia.explorer.mode.network/address/0x40CEd3481cf6afE204FB5EED4f557dE59d33b8f7)
 
